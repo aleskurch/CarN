@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ICarNumber } from "./interfaces/car-number.interface";
 
 @Component({
   selector: 'app-dashboard',
@@ -7,5 +8,5 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent {
-
+  @Input() public carNumbers!: ICarNumber[] | null;
 }
