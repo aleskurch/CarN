@@ -1,9 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
+import { ICarNumber } from '../../shared/interfaces/car-number.interface';
 
 import { DashboardActions } from './dashboard.actions';
 import { DEFAULT_LOADING_STATUS } from '../../shared/constants/lodaing-default-status';
 import { LoadingStatus } from '../../shared/interfaces/loading-status';
-import { ICarNumber } from '../../pages/dashboard/interfaces/car-number.interface'
 
 export const DASHBOARD = 'dashboard';
 
@@ -44,5 +44,11 @@ export const DASHBOARD_REDUCER = createReducer(
       ...state,
       carNumbersLoadingStatus: { loading: false, loaded: false, error },
     })
-  )
+  ),
+  on(DashboardActions.addCardNumber, (state, { carNumber }) => ({
+    ...state,
+    carNumbers: carNumber
+      ? [carNumber, ...(state.carNumbers || [])]
+      : state.carNumbers,
+  }))
 );

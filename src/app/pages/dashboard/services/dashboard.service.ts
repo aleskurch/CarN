@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { ICarNumber } from "../../../shared/interfaces/car-number.interface";
 
 import { BaseService } from '../../../shared/services/base-http.service';
-import { ICarNumber } from '../interfaces/car-number.interface';
 
 @Injectable({
   providedIn: 'root',

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { ICarNumber } from "./interfaces/car-number.interface";
+import { ICarNumber } from "../../shared/interfaces/car-number.interface";
 
 @Component({
   selector: 'app-dashboard',

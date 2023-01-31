@@ -7,18 +7,26 @@ import {
   UPDATE,
 } from '@ngrx/store';
 
-import { DASHBOARD, DASHBOARD_REDUCER, DashboardState } from './dashboard/dashboard.reducer';
+import {
+  DASHBOARD,
+  DASHBOARD_REDUCER,
+  DashboardState,
+} from './dashboard/dashboard.reducer';
 import { DashboardEffects } from './dashboard/dashboard.effects';
+import { HeaderEffects } from './header/header.effects';
+import { HEADER, HEADER_REDUCER, HeaderState } from './header/header.reducer';
 
 export interface State {
-  [DASHBOARD]: DashboardState
+  [DASHBOARD]: DashboardState;
+  [HEADER]: HeaderState;
 }
 
 export const ROOT_REDUCER: ActionReducerMap<State> = {
   [DASHBOARD]: DASHBOARD_REDUCER,
+  [HEADER]: HEADER_REDUCER,
 };
 
-export const ROOT_EFFECT = [DashboardEffects];
+export const ROOT_EFFECT = [DashboardEffects, HeaderEffects];
 
 export const hydrationMetaReducer = (
   reducer: ActionReducer<State>

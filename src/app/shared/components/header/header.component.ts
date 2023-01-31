@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { filter, tap } from 'rxjs';
-import { AddNumberComponent } from './add-number-modal/add-number/add-number.component';
-import { IAddingCarNumber } from './interfaces/adding-car-number.interface';
+
+import { CarNumberToAdd } from "../../interfaces/car-number.interface";
+import { AddNumberComponent } from '../add-number-modal/add-number.component';
 
 @Component({
   selector: 'app-header',
@@ -10,8 +11,8 @@ import { IAddingCarNumber } from './interfaces/adding-car-number.interface';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  @Output() public addNewNumber: EventEmitter<IAddingCarNumber> =
-    new EventEmitter<IAddingCarNumber>();
+  @Output() public addNewNumber: EventEmitter<CarNumberToAdd> =
+    new EventEmitter<CarNumberToAdd>();
 
   constructor(public dialog: MatDialog) {}
 
@@ -25,7 +26,7 @@ export class HeaderComponent {
       .afterClosed()
       .pipe(
         filter(Boolean),
-        tap((newNumber: IAddingCarNumber) => this.addNewNumber.emit(newNumber))
+        tap((newNumber: CarNumberToAdd) => this.addNewNumber.emit(newNumber))
       )
       .subscribe();
   }

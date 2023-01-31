@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { ICarNumber } from './interfaces/car-number.interface';
+
+import { ICarNumber } from "../../shared/interfaces/car-number.interface";
 import { selectCarNumbers } from '../../state/dashboard/dashboard.selectors';
 import { DashboardActions } from '../../state/dashboard/dashboard.actions';
 

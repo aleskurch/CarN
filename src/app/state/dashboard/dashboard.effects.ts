@@ -2,10 +2,10 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ICarNumber } from "../../shared/interfaces/car-number.interface";
 
 import { DashboardActions } from './dashboard.actions';
 import { DashboardService } from '../../pages/dashboard/services/dashboard.service';
-import { ICarNumber } from '../../pages/dashboard/interfaces/car-number.interface';
 
 @Injectable()
 export class DashboardEffects {

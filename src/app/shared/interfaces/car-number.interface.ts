@@ -3,3 +3,5 @@ export interface ICarNumber {
   holder: string,
   registerDate: Date,
 }
+
+export type CarNumberToAdd = Omit<ICarNumber, 'registered'>

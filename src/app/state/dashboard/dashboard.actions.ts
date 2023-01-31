@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ICarNumber } from "../../shared/interfaces/car-number.interface";
 
-import { ICarNumber } from '../../pages/dashboard/interfaces/car-number.interface';
 
 export const DashboardActions = {
   getCarNumbersRequest: createAction('[DASHBOARD] car numbers requested'),
@@ -15,4 +15,9 @@ export const DashboardActions = {
     '[DASHBOARD] car numbers error',
     props<{ error: HttpErrorResponse }>()
   ),
+
+  addCardNumber: createAction(
+    '[DASHBOARD] add car numbers',
+    props<{ carNumber: ICarNumber | null }>()
+  )
 };
