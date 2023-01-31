@@ -13,7 +13,7 @@ export class HeaderEffects {
     return this.actions$.pipe(
       ofType(HeaderActions.addCarNumberRequest),
       switchMap(({ carNumber }) =>
-        this.advertisementService.addCarNumber().pipe(
+        this.headerService.addCarNumber().pipe(
           map(
             () => DashboardActions.addCardNumber({ carNumber }),
           ),
@@ -27,6 +27,6 @@ export class HeaderEffects {
 
   constructor(
     private actions$: Actions,
-    private advertisementService: HeaderService
+    private headerService: HeaderService
   ) {}
 }

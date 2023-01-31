@@ -27,4 +27,12 @@ export class DashboardService extends BaseService {
       },
     ]);
   }
+
+  public deleteCarNumber(): Observable<boolean> {
+    return of(true);
+  }
+
+  public editCarNumber(): Observable<boolean> {
+    return of(true);
+  }
 }

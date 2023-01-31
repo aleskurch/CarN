@@ -9,11 +9,11 @@ import { DashboardService } from '../../pages/dashboard/services/dashboard.servi
 
 @Injectable()
 export class DashboardEffects {
-  public carNumbers$ = createEffect(() => {
+  public getCarNumbers$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(DashboardActions.getCarNumbersRequest),
       switchMap(() =>
-        this.advertisementService.getCarNumbers().pipe(
+        this.dashboardService.getCarNumbers().pipe(
           map((carNumbers: ICarNumber[]) =>
             DashboardActions.getCarNumbersSuccess({
               carNumbers,
@@ -27,8 +27,44 @@ export class DashboardEffects {
     );
   });
 
+  public deleteCarNumber$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(DashboardActions.deleteCarNumberRequest),
+      switchMap(({carNumber}) =>
+        this.dashboardService.deleteCarNumber().pipe(
+          map(() =>
+            DashboardActions.deleteCarNumberSuccess({
+              carNumber,
+            })
+          ),
+          catchError((error: HttpErrorResponse) =>
+            of(DashboardActions.deleteCarNumbersError({ error: error }))
+          )
+        )
+      )
+    );
+  });
+
+  public editCarNumber$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(DashboardActions.editCarNumberRequest),
+      switchMap(({carNumber}) =>
+        this.dashboardService.editCarNumber().pipe(
+          map(() =>
+            DashboardActions.editCarNumberSuccess({
+              carNumber,
+            })
+          ),
+          catchError((error: HttpErrorResponse) =>
+            of(DashboardActions.editCarNumbersError({ error: error }))
+          )
+        )
+      )
+    );
+  });
+
   constructor(
     private actions$: Actions,
-    private advertisementService: DashboardService
+    private dashboardService: DashboardService
   ) {}
 }

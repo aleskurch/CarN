@@ -1,7 +1,7 @@
 @import "src/assets/variables";
 
-:host{
-  .dashboard-container{
+:host {
+  .dashboard-container {
     display: flex;
     justify-content: center;
     gap: $offset-large;
@@ -15,7 +15,31 @@
       background-color: $accent-color;
 
       .dashboard-card-header {
+        display: flex;
+        justify-content: space-between;
         margin-bottom: $offset-medium;
+
+        .dashboard-card-button-block {
+          display: flex;
+          flex-direction: row;
+          gap: $offset-small;
+
+          .dashboard-card-edit-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            width: 2rem;
+            height: 2rem;
+
+            .dashboard-card-edit-icon {
+              font-size: 1rem;
+              width: 1rem;
+              height: 1rem;
+              color: $white;
+            }
+          }
+        }
       }
 
       .dashboard-card-text {

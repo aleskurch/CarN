@@ -21,7 +21,6 @@ export class HeaderComponent {
       .open(AddNumberComponent, {
         width: '50vw',
         autoFocus: false,
-        panelClass: '.modal-panel',
       })
       .afterClosed()
       .pipe(

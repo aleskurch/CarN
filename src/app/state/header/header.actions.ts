@@ -8,7 +8,6 @@ export const HeaderActions = {
     '[HEADER] add car numbers requested',
     props<{ carNumber: ICarNumber | null }>()
   ),
-
   addCarNumberError: createAction(
     '[HEADER] add car numbers error',
     props<{ error: HttpErrorResponse }>()

@@ -15,7 +15,7 @@ export class AddNumberComponent {
     number: [
       {
         value: this.data?.carNumber?.number || '',
-        disabled: !!this.data?.isEdit,
+        disabled: !this.data?.isEdit,
       },
       [Validators.required],
     ],
@@ -30,7 +30,6 @@ export class AddNumberComponent {
   ) {}
 
   public onSubmit(): void {
-    this.formGroup.getRawValue();
     this.dialogRef.close({ ...this.formGroup.getRawValue() });
   }
 }

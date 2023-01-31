@@ -10,6 +10,8 @@ import { DashboardActions } from '../../state/dashboard/dashboard.actions';
   selector: 'app-dashboard-container',
   template: `<app-dashboard
     [carNumbers]="carNumbers$ | async"
+    (deleteCarNumber)="onDeleteCarNumber($event)"
+    (editCarNumber)="onEditCarNumber($event)"
   ></app-dashboard>`,
 })
 export class DashboardContainerComponent implements OnInit {
@@ -21,5 +23,13 @@ export class DashboardContainerComponent implements OnInit {
 
   public ngOnInit(): void {
     this.store.dispatch(DashboardActions.getCarNumbersRequest());
+  }
+
+  public onDeleteCarNumber(deletingCarNumber: ICarNumber): void {
+    this.store.dispatch(DashboardActions.deleteCarNumberRequest({carNumber: deletingCarNumber}))
+  }
+
+  public onEditCarNumber(editingCarNumber: ICarNumber): void {
+    this.store.dispatch(DashboardActions.editCarNumberRequest({carNumber: editingCarNumber}))
   }
 }
