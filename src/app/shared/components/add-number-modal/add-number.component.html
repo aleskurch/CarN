@@ -1,17 +1,38 @@
 <h1 mat-dialog-title>Add Number</h1>
 
-<div mat-dialog-content class="body-container" [formGroup]="formGroup" >
+<div mat-dialog-content class="body-container" [formGroup]="formGroup">
   <mat-form-field appearance="outline" class="body-input">
     <mat-label>Number:</mat-label>
-    <input matInput formControlName="number">
+    <input matInput formControlName="number" />
+    <mat-error *ngIf="formGroup.get('number')?.hasError('required')"
+      >This field is required</mat-error
+    >
+    <mat-error *ngIf="formGroup.get('number')?.hasError('pattern')"
+      >Please follow the pattern "AAA000"</mat-error
+    >
+    <mat-error *ngIf="formGroup.get('number')?.hasError('numberAlreadyExists')"
+      >This number is already exists</mat-error
+    >
   </mat-form-field>
   <mat-form-field appearance="outline" class="body-input">
     <mat-label>Holder:</mat-label>
-    <input matInput formControlName="holder">
+    <input matInput formControlName="holder" />
+    <mat-error *ngIf="formGroup.get('holder')?.hasError('required')"
+      >This field is required</mat-error
+    >
   </mat-form-field>
 </div>
 
 <div mat-dialog-actions class="action-buttons">
-  <button mat-button class="cancel-action-button" [mat-dialog-close]="false">Cancel</button>
-  <button mat-button class="add-action-button" [disabled]="formGroup.invalid" (click)="onSubmit()">Add</button>
+  <button mat-button class="cancel-action-button" [mat-dialog-close]="false">
+    Cancel
+  </button>
+  <button
+    mat-button
+    class="add-action-button"
+    [disabled]="!formGroup.valid"
+    (click)="onSubmit()"
+  >
+    Add
+  </button>
 </div>

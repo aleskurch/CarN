@@ -4,6 +4,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ICarNumber } from '../../interfaces/car-number.interface';
 
 import { IAddNumberFormGroup } from './interfaces/add-number-form-group.interface';
+import { AddNumbersService } from './services/add-numbers.service';
+import { UniquenessValidator } from './uniqueness-validator.directive';
 
 @Component({
   selector: 'app-add-number',
@@ -17,7 +19,11 @@ export class AddNumberComponent {
         value: this.data?.carNumber?.number || '',
         disabled: !!this.data?.isEdit,
       },
-      [Validators.required],
+      [
+        Validators.required,
+        Validators.pattern(/^[A-Z]{3}\d{3}$/),
+      ],
+      [UniquenessValidator.checkUniqueness(this.addNumbersService)]
     ],
     holder: [this.data?.carNumber?.holder || '', [Validators.required]],
   });
@@ -25,8 +31,9 @@ export class AddNumberComponent {
   constructor(
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<AddNumberComponent>,
+    private addNumbersService: AddNumbersService,
     @Inject(MAT_DIALOG_DATA)
-    public data: { carNumber: ICarNumber; isEdit: boolean } | null
+    private data: { carNumber: ICarNumber; isEdit: boolean } | null
   ) {}
 
   public onSubmit(): void {
