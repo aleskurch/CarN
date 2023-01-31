@@ -32,7 +32,7 @@ export class DashboardComponent {
   public onEdit(carNumber: ICarNumber): void {
     this.matDialog
       .open(AddNumberComponent, {
-        data: {carNumber, isEditable: true},
+        data: {carNumber, isEdit: true},
         width: '50vw',
         autoFocus: false,
       })

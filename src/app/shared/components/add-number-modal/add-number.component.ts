@@ -15,7 +15,7 @@ export class AddNumberComponent {
     number: [
       {
         value: this.data?.carNumber?.number || '',
-        disabled: !this.data?.isEdit,
+        disabled: !!this.data?.isEdit,
       },
       [Validators.required],
     ],
