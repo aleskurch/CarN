@@ -1,0 +1,11 @@
+@import "src/assets/variables";
+
+:host {
+  .add-action-button {
+    background-color: $accent-color;
+  }
+
+  .cancel-action-button {
+    background-color: $cancel-color;
+  }
+}

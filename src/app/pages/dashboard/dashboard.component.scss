@@ -5,14 +5,14 @@
     display: flex;
     justify-content: center;
     gap: $offset-large;
-    height: 100vh;
+    height: calc(100vh - #{$header-height});
     background-color: $background-color;
     padding: $offset-large 0;
 
     .dashboard-card {
       width: max-content;
       height: max-content;
-      background-color: $primary-color;
+      background-color: $accent-color;
 
       .dashboard-card-header {
         margin-bottom: $offset-medium;

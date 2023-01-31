@@ -1,0 +1,17 @@
+@import "src/assets/variables";
+
+:host {
+  .header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: $header-height;
+    background-color: $primary-color;
+    padding: 0 $offset-medium;
+
+    .app-name {
+      font-size: 2rem;
+    }
+  }
+}
