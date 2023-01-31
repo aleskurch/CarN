@@ -1,4 +1,11 @@
-<p>dashboard works!</p>
-<div *ngFor="let carNumber of carNumbers">
-  {{carNumber.number}},{{carNumber.holder}}
+<div class="dashboard-container">
+  <mat-card *ngFor="let carNumber of carNumbers" class="dashboard-card">
+    <mat-card-header class="dashboard-card-header">
+      <mat-card-title>{{ carNumber.number }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Holder: {{ carNumber.holder }}</p>
+      <p>Registered on: {{ carNumber.registerDate | date : "mediumDate" }}</p>
+    </mat-card-content>
+  </mat-card>
 </div>

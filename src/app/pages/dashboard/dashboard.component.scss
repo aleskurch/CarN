@@ -1,0 +1,22 @@
+@import "src/assets/variables";
+
+:host{
+  .dashboard-container{
+    display: flex;
+    justify-content: center;
+    gap: $offset-large;
+    height: 100vh;
+    background-color: $background-color;
+    padding: $offset-large 0;
+
+    .dashboard-card {
+      width: max-content;
+      height: max-content;
+      background-color: $primary-color;
+
+      .dashboard-card-header {
+        margin-bottom: $offset-medium;
+      }
+    }
+  }
+}
