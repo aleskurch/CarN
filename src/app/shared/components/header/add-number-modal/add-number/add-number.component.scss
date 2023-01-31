@@ -1,11 +1,35 @@
 @import "src/assets/variables";
 
 :host {
-  .add-action-button {
-    background-color: $accent-color;
+  .body-container {
+    display: flex;
+    flex-direction: column;
+    padding: $offset-large;
+
+    .body-input {
+      color: $primary-color;
+
+      mat-label {
+        font-size: 0.9rem
+      }
+    }
   }
 
-  .cancel-action-button {
-    background-color: $cancel-color;
+  .action-buttons {
+    display: flex;
+    justify-content: right;
+
+    .add-action-button,
+    .cancel-action-button {
+      color: $white;
+    }
+
+    .add-action-button {
+      background-color: $accent-color;
+    }
+
+    .cancel-action-button {
+      background-color: $cancel-color;
+    }
   }
 }

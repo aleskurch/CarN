@@ -1,0 +1,29 @@
+@import "variables";
+
+$primary-palette: (
+  50: lighten($primary-color, 90),
+  100: lighten($primary-color, 80),
+  200: lighten($primary-color, 60),
+  500: $primary-color,
+  700: darken($primary-color, 60),
+  contrast: (
+    50: $white,
+    100: $white,
+    200: $white,
+    500: $white,
+    700: $white,
+  )
+);
+
+$accent-palette: (
+  50: lighten($accent-color, 90),
+  100: lighten($accent-color, 80),
+  500: $accent-color,
+  700: darken($accent-color, 60),
+  contrast: (
+    50: $white,
+    100: $white,
+    500: $white,
+    700: $white,
+  )
+);

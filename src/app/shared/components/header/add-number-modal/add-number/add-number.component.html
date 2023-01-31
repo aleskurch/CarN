@@ -1,10 +1,17 @@
-<h1 mat-dialog-title>Title</h1>
+<h1 mat-dialog-title>Add Number</h1>
 
-<div mat-dialog-content>
-  Body
+<div mat-dialog-content class="body-container" [formGroup]="formGroup" >
+  <mat-form-field appearance="outline" class="body-input">
+    <mat-label>Number:</mat-label>
+    <input matInput formControlName="number">
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="body-input">
+    <mat-label>Holder:</mat-label>
+    <input matInput formControlName="holder">
+  </mat-form-field>
 </div>
 
-<div mat-dialog-actions>
+<div mat-dialog-actions class="action-buttons">
   <button mat-button class="cancel-action-button" [mat-dialog-close]="false">Cancel</button>
-  <button mat-button class="add-action-button">Add</button>
+  <button mat-button class="add-action-button" [disabled]="formGroup.invalid" (click)="onSubmit()">Add</button>
 </div>
