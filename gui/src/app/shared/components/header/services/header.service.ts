@@ -1,12 +1,13 @@
 import { Injectable } from "@angular/core";
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
+import { ICarNumber } from "../../../interfaces/car-number.interface";
 import { BaseService } from "../../../services/base-http.service";
 
 @Injectable({
   providedIn: 'root',
 })
 export class HeaderService extends BaseService {
-  public addCarNumber(): Observable<boolean> {
-    return this.get<string>('greeting').pipe(map(() => true))
+  public addCarNumber(newCarNumber: ICarNumber | null): Observable<ICarNumber> {
+    return this.post<ICarNumber>('car-numbers', newCarNumber);
   }
 }

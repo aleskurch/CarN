@@ -13,7 +13,7 @@ export class HeaderEffects {
     return this.actions$.pipe(
       ofType(HeaderActions.addCarNumberRequest),
       switchMap(({ carNumber }) =>
-        this.headerService.addCarNumber().pipe(
+        this.headerService.addCarNumber(carNumber).pipe(
           map(
             () => DashboardActions.addCardNumber({ carNumber }),
           ),

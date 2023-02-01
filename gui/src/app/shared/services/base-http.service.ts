@@ -25,7 +25,7 @@ export class BaseService {
     });
   }
 
-  public post<T>(url: string, data: object): Observable<T> {
+  public post<T>(url: string, data: object | null): Observable<T> {
     return this.httpClient.post<T>(this.apiUrl + url, data, this.httpOptions);
   }
 
