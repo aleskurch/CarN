@@ -1,7 +1,6 @@
 const http = require("http");
 const fs = require("fs");
-const url = require('url');
-
+const url = require("url");
 
 const server = http.createServer((req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -21,14 +20,35 @@ const server = http.createServer((req, res) => {
   const parsedUrl = url.parse(req.url, true);
   const queries = parsedUrl.query;
 
-  console.log(parsedUrl.pathname)
-
+  console.log(`? ${req.method} ${parsedUrl.pathname}`, queries);
 
   switch (`${req.method} ${parsedUrl.pathname}`) {
     case "GET /car-numbers":
       fs.readFile("database.json", "utf8", (err, data) => {
         if (err) throw err;
         res.end(data);
+      });
+      res.writeHead(200, { "Content-Type": "application/json" });
+
+      break;
+
+    case "GET /is-number-valid":
+      fs.readFile("database.json", "utf8", (err, data) => {
+        if (err) throw err;
+        if (!queries.carNumber) {
+          res.writeHead(400, { "Content-Type": "application/json" });
+          res.end("Invalid Request: No carNumber presented");
+        }
+
+        console.log(data);
+
+        res.end(
+          JSON.stringify({
+            valid: !JSON.parse(data).carNumbers.some(
+              (existedCarNumber) => existedCarNumber.number === queries.carNumber
+            ),
+          })
+        );
       });
       res.writeHead(200, { "Content-Type": "application/json" });
 
@@ -92,7 +112,7 @@ const server = http.createServer((req, res) => {
       break;
 
     case "DELETE /delete-car-number":
-      if(!queries.carNumber) {
+      if (!queries.carNumber) {
         res.writeHead(400, { "Content-Type": "application/json" });
         res.end("Invalid Request: No carNumber presented");
       }
@@ -102,17 +122,15 @@ const server = http.createServer((req, res) => {
         const carNumbersData = JSON.parse(data);
         const numberToDelete = queries.carNumber;
 
-        carNumbersData.carNumbers = carNumbersData.carNumbers.filter((carNumber) => numberToDelete !== carNumber.number)
-
-        fs.writeFile(
-          "database.json",
-          JSON.stringify(carNumbersData),
-          (err) => {
-            if (err) throw err;
-            console.log(`Deleted entity: ${numberToDelete}`);
-            res.end(JSON.stringify({number: numberToDelete}));
-          }
+        carNumbersData.carNumbers = carNumbersData.carNumbers.filter(
+          (carNumber) => numberToDelete !== carNumber.number
         );
+
+        fs.writeFile("database.json", JSON.stringify(carNumbersData), (err) => {
+          if (err) throw err;
+          console.log(`Deleted entity: ${numberToDelete}`);
+          res.end(JSON.stringify({ number: numberToDelete }));
+        });
       });
 
       res.writeHead(200, { "Content-Type": "application/json" });
@@ -120,7 +138,6 @@ const server = http.createServer((req, res) => {
       break;
 
     default:
-      console.log(`${req.method} ${req.url}`)
       res.writeHead(404, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ error: "Not Found" }));
   }

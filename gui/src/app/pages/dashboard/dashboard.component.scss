@@ -1,11 +1,15 @@
 @import "src/assets/variables";
 
 :host {
+  display: block;
+  background-color: $background-color;
+  height: calc(100vh - #{$header-height});
+
   .dashboard-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: $offset-large;
-    height: calc(100vh - #{$header-height});
     background-color: $background-color;
     padding: $offset-large;
 
