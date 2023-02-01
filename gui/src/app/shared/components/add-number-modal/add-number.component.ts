@@ -13,6 +13,10 @@ import { UniquenessValidator } from './uniqueness-validator.directive';
   styleUrls: ['./add-number.component.scss'],
 })
 export class AddNumberComponent {
+  public get isEdit(): boolean {
+    return !!this.data?.isEdit
+  }
+
   public formGroup: FormGroup<IAddNumberFormGroup> = this.formBuilder.group({
     number: [
       {

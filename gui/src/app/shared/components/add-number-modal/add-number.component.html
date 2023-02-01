@@ -33,6 +33,6 @@
     [disabled]="!formGroup.valid"
     (click)="onSubmit()"
   >
-    Add
+    {{ isEdit ? "Edit" : "Add" }}
   </button>
 </div>
