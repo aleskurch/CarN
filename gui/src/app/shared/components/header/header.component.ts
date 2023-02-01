@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from "@angular/core";
 import { MatDialog } from '@angular/material/dialog';
 import { filter, tap } from 'rxjs';
 
-import { CarNumberToAdd } from "../../interfaces/car-number.interface";
+import { CarNumberToAdd } from '../../interfaces/car-number.interface';
 import { AddNumberComponent } from '../add-number-modal/add-number.component';
 
 @Component({
