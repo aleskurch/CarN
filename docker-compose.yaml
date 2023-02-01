@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+  api:
+    build: api
+    image: car-n-api
+    container_name: api
+    ports:
+      - "3000:80"
+  gui:
+    build: gui
+    image: car-n-gui
+    container_name: gui
+    ports:
+      - "4200:80"
+    depends_on:
+      - api

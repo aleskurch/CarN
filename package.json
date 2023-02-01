@@ -2,10 +2,14 @@
   "name": "car-n",
   "version": "0.0.0",
   "scripts": {
-    "start": "cd gui && npm start"
+    "start-gui": "cd gui && npm start",
+    "start-api": "cd api && node index.js"
   },
   "private": true,
   "devDependencies": {
     "prettier": "2.8.3"
+  },
+  "dependencies": {
+    "docker": "^1.0.0"
   }
 }

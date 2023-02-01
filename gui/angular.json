@@ -68,6 +68,9 @@
               "browserTarget": "CarN:build:development"
             }
           },
+          "options": {
+            "port": 4200
+          },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
@@ -98,5 +101,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
