@@ -8,6 +8,6 @@ import { BaseService } from "../../../services/base-http.service";
 })
 export class HeaderService extends BaseService {
   public addCarNumber(newCarNumber: ICarNumber | null): Observable<ICarNumber> {
-    return this.post<ICarNumber>('car-numbers', newCarNumber);
+    return this.post<ICarNumber>('add-car-number', newCarNumber);
   }
 }

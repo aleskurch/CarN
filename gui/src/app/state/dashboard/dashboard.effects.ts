@@ -31,7 +31,7 @@ export class DashboardEffects {
     return this.actions$.pipe(
       ofType(DashboardActions.deleteCarNumberRequest),
       switchMap(({carNumber}) =>
-        this.dashboardService.deleteCarNumber().pipe(
+        this.dashboardService.deleteCarNumber(carNumber).pipe(
           map(() =>
             DashboardActions.deleteCarNumberSuccess({
               carNumber,
@@ -49,7 +49,7 @@ export class DashboardEffects {
     return this.actions$.pipe(
       ofType(DashboardActions.editCarNumberRequest),
       switchMap(({carNumber}) =>
-        this.dashboardService.editCarNumber().pipe(
+        this.dashboardService.editCarNumber(carNumber).pipe(
           map(() =>
             DashboardActions.editCarNumberSuccess({
               carNumber,

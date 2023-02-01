@@ -1,8 +1,8 @@
-import { HttpClient, HttpHeaders, } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { environment } from "../../environments/environment";
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -29,11 +29,17 @@ export class BaseService {
     return this.httpClient.post<T>(this.apiUrl + url, data, this.httpOptions);
   }
 
-  public patch<T>(url: string, data: object): Observable<T> {
+  public patch<T>(url: string, data: object | null): Observable<T> {
     return this.httpClient.patch<T>(this.apiUrl + url, data, this.httpOptions);
   }
 
-  public delete<T>(url: string): Observable<T> {
-    return this.httpClient.delete<T>(this.apiUrl + url, this.httpOptions);
+  public delete<T>(
+    url: string,
+    params?: Record<string, string>
+  ): Observable<T> {
+    return this.httpClient.delete<T>(this.apiUrl + url, {
+      ...this.httpOptions,
+      params,
+    });
   }
 }
