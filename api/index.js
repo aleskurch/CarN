@@ -19,76 +19,140 @@ const server = http.createServer((req, res) => {
 
   const parsedUrl = url.parse(req.url, true);
   const queries = parsedUrl.query;
+  const pathname = parsedUrl.pathname;
 
-  console.log(`? ${req.method} ${parsedUrl.pathname}`, queries);
-
-  switch (`${req.method} ${parsedUrl.pathname}`) {
-    case "GET /car-numbers":
-      fs.readFile("database.json", "utf8", (err, data) => {
-        if (err) throw err;
-        res.end(data);
-      });
-      res.writeHead(200, { "Content-Type": "application/json" });
-
+  switch (req.method) {
+    case "GET":
+      getHandler(res, pathname, queries);
       break;
 
-    case "GET /is-number-valid":
+    case "POST":
+      postHandler(req, res, pathname);
+      break;
+
+    case "PATCH":
+      patchHandler(req, res, pathname)
+      break;
+
+    case "DELETE":
+      deleteHandler(res, pathname, queries)
+      break;
+
+    default:
+      res.writeHead(404, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "Not Found" }));
+  }
+});
+
+const getHandler = (res, pathname, queries) => {
+  switch (pathname) {
+    case "/car-numbers":
       fs.readFile("database.json", "utf8", (err, data) => {
-        if (err) throw err;
-        if (!queries.carNumber) {
-          res.writeHead(400, { "Content-Type": "application/json" });
-          res.end("Invalid Request: No carNumber presented");
+        if (err) {
+          res.writeHead(404, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ error: "Error while database connection" }));
+
+          return;
         }
 
-        console.log(data);
+        const parsedData = JSON.parse(data);
 
-        res.end(
-          JSON.stringify({
-            valid: !JSON.parse(data).carNumbers.some(
-              (existedCarNumber) => existedCarNumber.number === queries.carNumber
-            ),
-          })
-        );
+        res.writeHead(200, { "Content-Type": "application/json" });
+
+        if (queries.carNumber) {
+          res.end(
+            JSON.stringify({
+              valid: !parsedData.carNumbers.some(
+                (existedCarNumber) =>
+                  existedCarNumber.number === queries.carNumber
+              ),
+            })
+          );
+
+          return;
+        }
+
+        res.end(data);
       });
-      res.writeHead(200, { "Content-Type": "application/json" });
-
       break;
 
-    case "POST /add-car-number":
+    default:
+      res.writeHead(404, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "Not Found" }));
+  }
+};
+
+const postHandler = (req, res, pathname) => {
+  switch (pathname) {
+    case "/car-numbers":
       req.on("data", (numberToAdd) => {
         fs.readFile("database.json", "utf8", (err, data) => {
-          if (err) throw err;
-          const carNumbersData = JSON.parse(data);
+          if (err) {
+            res.writeHead(404, { "Content-Type": "application/json" });
+            res.end(
+              JSON.stringify({ error: "Error while database connection" })
+            );
 
-          carNumbersData.carNumbers.unshift(JSON.parse(numberToAdd));
+            return;
+          }
+
+          const carNumbersData = JSON.parse(data);
+          const newCarNumber = {
+            ...JSON.parse(numberToAdd),
+            registerDate: new Date(),
+          };
+          carNumbersData.carNumbers.unshift(newCarNumber);
 
           fs.writeFile(
             "database.json",
             JSON.stringify(carNumbersData),
             (err) => {
-              if (err) throw err;
-              console.log(`New Entity: ${numberToAdd}`);
-              res.end(numberToAdd);
+              if (err) {
+                res.writeHead(404, { "Content-Type": "application/json" });
+                res.end(
+                  JSON.stringify({ error: "Error while writing to database" })
+                );
+                return;
+              }
+
+              res.writeHead(200, { "Content-Type": "application/json" });
+              res.end(JSON.stringify(newCarNumber));
             }
           );
         });
-
-        res.writeHead(200, { "Content-Type": "application/json" });
       });
 
       break;
 
-    case "PATCH /update-car-number":
+    default:
+      res.writeHead(404, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "Not Found" }));
+  }
+};
+
+const patchHandler = (req, res, pathname) => {
+  switch (pathname) {
+    case "/car-numbers":
       req.on("data", (carNumberToUpdate) => {
         fs.readFile("database.json", "utf8", (err, data) => {
-          if (err) throw err;
+          if (err) {
+            res.writeHead(404, { "Content-Type": "application/json" });
+            res.end(
+              JSON.stringify({ error: "Error while database connection" })
+            );
+
+            return;
+          }
+
           const carNumbersData = JSON.parse(data);
           const numberToUpdate = JSON.parse(carNumberToUpdate);
+          let updatedNumber;
 
           carNumbersData.carNumbers = carNumbersData.carNumbers.map(
             (carNumber) => {
               if (carNumber.number === numberToUpdate.number) {
-                return numberToUpdate;
+                updatedNumber = { ...carNumber, holder: numberToUpdate.holder };
+                return updatedNumber
               }
 
               return carNumber;
@@ -99,26 +163,49 @@ const server = http.createServer((req, res) => {
             "database.json",
             JSON.stringify(carNumbersData),
             (err) => {
-              if (err) throw err;
-              console.log(`Updated entity: ${carNumberToUpdate}`);
-              res.end(carNumberToUpdate);
+              if (err) {
+                res.writeHead(404, { "Content-Type": "application/json" });
+                res.end(
+                  JSON.stringify({ error: "Error while writing to database" })
+                );
+
+                return;
+              }
+
+              res.writeHead(200, { "Content-Type": "application/json" });
+              res.end(JSON.stringify(updatedNumber));
             }
           );
         });
-
-        res.writeHead(200, { "Content-Type": "application/json" });
       });
 
       break;
 
-    case "DELETE /delete-car-number":
+    default:
+      res.writeHead(404, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "Not Found" }));
+  }
+};
+
+const deleteHandler = (res, pathname, queries) => {
+  switch (pathname) {
+    case "/car-numbers":
       if (!queries.carNumber) {
         res.writeHead(400, { "Content-Type": "application/json" });
         res.end("Invalid Request: No carNumber presented");
+
+        return;
       }
 
       fs.readFile("database.json", "utf8", (err, data) => {
-        if (err) throw err;
+        if (err) {
+          res.writeHead(404, { "Content-Type": "application/json" });
+          res.end(
+            JSON.stringify({ error: "Error while database connection" })
+          );
+
+          return;
+        }
         const carNumbersData = JSON.parse(data);
         const numberToDelete = queries.carNumber;
 
@@ -127,21 +214,26 @@ const server = http.createServer((req, res) => {
         );
 
         fs.writeFile("database.json", JSON.stringify(carNumbersData), (err) => {
-          if (err) throw err;
-          console.log(`Deleted entity: ${numberToDelete}`);
-          res.end(JSON.stringify({ number: numberToDelete }));
+          if (err) {
+            res.writeHead(404, { "Content-Type": "application/json" });
+            res.end(
+              JSON.stringify({ error: "Error while writing to database" })
+            );
+
+            return;
+          }
+
+          res.writeHead(204, { "Content-Type": "application/json" });
+          res.end();
         });
       });
-
-      res.writeHead(200, { "Content-Type": "application/json" });
-
       break;
 
     default:
       res.writeHead(404, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ error: "Not Found" }));
   }
-});
+};
 
 server.listen(80, () => {
   console.log("Example app listening on port 80!");
