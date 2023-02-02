@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
+
 import {
   CarNumberInterface,
   CarNumberToAddInterface,
 } from '../../../shared/interfaces/car-number.interface';
-
 import { BaseService } from '../../../shared/services/base-http.service';
 import { CarNumbersFromApiInterface } from '../interfaces/car-numbers-from-api.interface';
 
