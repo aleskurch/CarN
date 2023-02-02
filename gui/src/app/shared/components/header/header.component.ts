@@ -40,7 +40,7 @@ export class HeaderComponent implements OnChanges {
   public onAddNumber(): void {
     this.dialog
       .open(AddNumberComponent, {
-        width: '50vw',
+        width: '30rem',
         minWidth: '20rem',
         autoFocus: false,
       })

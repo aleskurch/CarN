@@ -76,7 +76,7 @@ export class DashboardComponent implements OnChanges {
     this.matDialog
       .open(AddNumberComponent, {
         data: { carNumber, isEdit: true },
-        width: '50vw',
+        width: '30rem',
         minWidth: '20rem',
         autoFocus: false,
       })
