@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { createServiceFactory, mockProvider, SpectatorService, SpyObject, } from '@ngneat/spectator/jest';
 
-import { QUERY_PARAMS_MOCK, URL_MOCK } from "../mocks/htttp-options-mock";
+import { QUERY_PARAMS_MOCK, URL_MOCK } from "../mocks/base-http-service-mock";
 import { BaseService } from "./base-http.service";
 
 describe('BaseService', () => {
