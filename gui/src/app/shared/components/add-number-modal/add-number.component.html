@@ -30,7 +30,7 @@
   <button
     mat-button
     class="add-action-button"
-    [disabled]="!formGroup.valid"
+    [disabled]="!formGroup.valid || formGroup.pristine"
     (click)="onSubmit()"
   >
     {{ isEdit ? "Edit" : "Add" }}
