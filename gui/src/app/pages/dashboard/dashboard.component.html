@@ -9,6 +9,8 @@
             <button
               mat-icon-button
               class="dashboard-card-edit-button"
+              matTooltip="Edit Car Number"
+              matTooltipShowDelay="1000"
               (click)="onEdit(carNumber)"
             >
               <mat-icon class="dashboard-card-edit-icon">edit</mat-icon>
@@ -17,6 +19,8 @@
             <button
               mat-icon-button
               class="dashboard-card-edit-button"
+              matTooltip="Delete Car Number"
+              matTooltipShowDelay="1000"
               (click)="onDelete(carNumber.number)"
             >
               <mat-icon class="dashboard-card-edit-icon">delete</mat-icon>
