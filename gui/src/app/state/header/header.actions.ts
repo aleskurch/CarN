@@ -12,5 +12,5 @@ export const HeaderActions = {
     '[HEADER] add car numbers error',
     props<{ error: HttpErrorResponse }>()
   ),
-  dropStatus: createAction('[HEADER] drop loading status'),
+  dropLoadingStatus: createAction('[HEADER] drop loading status'),
 };

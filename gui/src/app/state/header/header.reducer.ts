@@ -43,7 +43,7 @@ export const HEADER_REDUCER = createReducer(
     })
   ),
   on(
-    HeaderActions.dropStatus,
+    HeaderActions.dropLoadingStatus,
     (state): HeaderState => ({
       ...state,
       addCarNumberLoadingStatus: DEFAULT_LOADING_STATUS,

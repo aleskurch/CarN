@@ -11,9 +11,9 @@ import {
 import { of } from 'rxjs';
 
 import { DashboardComponent } from './dashboard.component';
-import { CAR_NUMBER_TO_ADD_MOCK } from "./mocks/car-number-to-add-mock";
-import { LOADING_STATUS_ERROR_MOCK } from './mocks/loading-status-error-mock';
-import { SnackBarMock } from './mocks/snack-bar-mock';
+import { CAR_NUMBER_TO_ADD_MOCK } from "../../shared/mocks/car-number-to-add-mock";
+import { LOADING_STATUS_ERROR_MOCK } from '../../shared/mocks/loading-status-error-mock';
+import { SnackBarMock } from '../../shared/mocks/snack-bar-mock';
 
 describe('DashboardComponent', () => {
   let spectator: Spectator<DashboardComponent>;

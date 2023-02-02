@@ -15,7 +15,7 @@ import { of, Subscription } from 'rxjs';
 import { DashboardContainerComponent } from './dashboard-container.component';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardActions } from '../../state/dashboard/dashboard.actions';
-import { CAR_NUMBER_TO_ADD_MOCK } from './mocks/car-number-to-add-mock';
+import { CAR_NUMBER_TO_ADD_MOCK } from '../../shared/mocks/car-number-to-add-mock';
 
 describe('DashboardContainerComponent', () => {
   let spectator: Spectator<DashboardContainerComponent>;

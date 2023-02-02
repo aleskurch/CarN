@@ -33,10 +33,10 @@ export class HeaderContainerComponent implements OnDestroy {
   }
 
   public onStatusDrop(): void {
-    this.store.dispatch(HeaderActions.dropStatus());
+    this.store.dispatch(HeaderActions.dropLoadingStatus());
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.onStatusDrop();
   }
 }

@@ -8,7 +8,7 @@ import {
 import { Subscription } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { CAR_NUMBER_TO_ADD_MOCK } from '../mocks/car-number-to-add-mock';
+import { CAR_NUMBER_TO_ADD_MOCK } from '../../../shared/mocks/car-number-to-add-mock';
 import { DashboardService } from './dashboard.service';
 
 describe('DashboardService', () => {
