@@ -1,6 +1,9 @@
 @import "../../../../assets/variables";
 
 :host {
+  position: relative;
+  z-index: 1;
+
   .header {
     width: 100%;
     display: flex;
@@ -8,7 +11,7 @@
     justify-content: space-between;
     height: $header-height;
     background-color: $primary-color;
-    padding: 0 $offset-medium;
+    padding: 0 $offset-x-large;
 
     .app-name {
       font-size: 2rem;

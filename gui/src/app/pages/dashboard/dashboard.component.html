@@ -17,14 +17,14 @@
             <button
               mat-icon-button
               class="dashboard-card-edit-button"
-              (click)="onDelete(carNumber)"
+              (click)="onDelete(carNumber.number)"
             >
               <mat-icon class="dashboard-card-edit-icon">delete</mat-icon>
             </button>
           </div>
         </mat-card-header>
 
-        <mat-card-content>
+        <mat-card-content class="dashboard-card-body">
           <p class="dashboard-card-text">Holder: {{ carNumber.holder }}</p>
           <p class="dashboard-card-text">
             Registered on: {{ carNumber.registerDate | date : "mediumDate" }}
@@ -34,7 +34,7 @@
   </ng-container>
 
   <ng-template #notLoaded>
-    <mat-spinner *ngIf="carNumbersLoadingStatus?.loading || !carNumbersLoadingStatus; else noData"></mat-spinner>
+    <mat-spinner *ngIf="carNumbersLoadingStatus?.loading || !carNumbersLoadingStatus; else noData" class="spinner"></mat-spinner>
 
     <ng-template #noData>
       <mat-icon class="no-data-icon">block</mat-icon>

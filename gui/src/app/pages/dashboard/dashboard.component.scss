@@ -1,16 +1,17 @@
 @import "src/assets/variables";
 
 :host {
-  display: block;
+  display: flex;
   background-color: $background-color;
   height: calc(100vh - #{$header-height});
 
   .dashboard-container {
     display: flex;
+    flex-grow: 1;
     flex-wrap: wrap;
     justify-content: center;
     gap: $offset-large;
-    background-color: $background-color;
+    overflow: auto;
     padding: $offset-large;
 
     .no-data-icon {
@@ -20,20 +21,26 @@
       color: $accent-color;
     }
 
+    .spinner {
+      align-self: center;
+    }
+
     .no-data-text {
       font-size: 2.5rem;
       color: $accent-color;
     }
 
     .dashboard-card {
-      width: max-content;
+      min-width: 300px;
+      max-width: max-content;
       height: max-content;
       background-color: $accent-color;
 
       .dashboard-card-header {
         display: flex;
         justify-content: space-between;
-        margin-bottom: $offset-medium;
+        border-bottom: 1px solid $white;
+        padding: $offset-large;
 
         .dashboard-card-button-block {
           display: flex;
@@ -56,6 +63,10 @@
             }
           }
         }
+      }
+
+      .dashboard-card-body {
+        padding: $offset-large;
       }
 
       .dashboard-card-text {
