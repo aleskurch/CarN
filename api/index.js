@@ -61,9 +61,27 @@ const getHandler = (res, pathname, queries) => {
 
         const parsedData = JSON.parse(data);
 
-        res.writeHead(200, { "Content-Type": "application/json" });
-
         if (queries.carNumber) {
+          if (typeof queries.carNumber !== "string") {
+            res.writeHead(400, { "Content-Type": "application/json" });
+            res.end(
+              JSON.stringify({ error: "Invalid number. It should be string" })
+            );
+
+            return;
+          }
+
+          if (!validateNumber(queries.carNumber)) {
+            res.writeHead(400, { "Content-Type": "application/json" });
+            res.end(
+              JSON.stringify({
+                error: "Invalid number. It should satisfy the pattern AAA000",
+              })
+            );
+
+            return;
+          }
+
           res.end(
             JSON.stringify({
               valid: !parsedData.carNumbers.some(
@@ -76,6 +94,7 @@ const getHandler = (res, pathname, queries) => {
           return;
         }
 
+        res.writeHead(200, { "Content-Type": "application/json" });
         res.end(data);
       });
       break;
@@ -90,6 +109,37 @@ const postHandler = (req, res, pathname) => {
   switch (pathname) {
     case "/car-numbers":
       req.on("data", (numberToAdd) => {
+        const receivedCarNumber = JSON.parse(numberToAdd);
+
+        if (typeof receivedCarNumber.number !== "string") {
+          res.writeHead(400, { "Content-Type": "application/json" });
+          res.end(
+            JSON.stringify({ error: "Invalid number. It should be string" })
+          );
+
+          return;
+        }
+
+        if (!validateNumber(receivedCarNumber.number)) {
+          res.writeHead(400, { "Content-Type": "application/json" });
+          res.end(
+            JSON.stringify({
+              error: "Invalid number. It should satisfy the pattern AAA000",
+            })
+          );
+
+          return;
+        }
+
+        if (typeof receivedCarNumber.holder !== "string") {
+          res.writeHead(400, { "Content-Type": "application/json" });
+          res.end(
+            JSON.stringify({ error: "Invalid holder. It should be string" })
+          );
+
+          return;
+        }
+
         fs.readFile("database.json", "utf8", (err, data) => {
           if (err) {
             res.writeHead(404, { "Content-Type": "application/json" });
@@ -138,6 +188,37 @@ const patchHandler = (req, res, pathname) => {
   switch (pathname) {
     case "/car-numbers":
       req.on("data", (carNumberToUpdate) => {
+        const receivedCarNumber = JSON.parse(carNumberToUpdate);
+
+        if (typeof receivedCarNumber.number !== "string") {
+          res.writeHead(400, { "Content-Type": "application/json" });
+          res.end(
+            JSON.stringify({ error: "Invalid number. It should be string" })
+          );
+
+          return;
+        }
+
+        if (!validateNumber(receivedCarNumber.number)) {
+          res.writeHead(400, { "Content-Type": "application/json" });
+          res.end(
+            JSON.stringify({
+              error: "Invalid number. It should satisfy the pattern AAA000",
+            })
+          );
+
+          return;
+        }
+
+        if (typeof receivedCarNumber.holder !== "string") {
+          res.writeHead(400, { "Content-Type": "application/json" });
+          res.end(
+            JSON.stringify({ error: "Invalid holder. It should be string" })
+          );
+
+          return;
+        }
+
         fs.readFile("database.json", "utf8", (err, data) => {
           if (err) {
             res.writeHead(404, { "Content-Type": "application/json" });
@@ -196,7 +277,29 @@ const deleteHandler = (res, pathname, queries) => {
     case "/car-numbers":
       if (!queries.carNumber) {
         res.writeHead(400, { "Content-Type": "application/json" });
-        res.end("Invalid Request: No carNumber presented");
+        res.end(
+          JSON.stringify({ error: "Invalid Request: No carNumber presented" })
+        );
+
+        return;
+      }
+
+      if (typeof queries.carNumber !== "string") {
+        res.writeHead(400, { "Content-Type": "application/json" });
+        res.end(
+          JSON.stringify({ error: "Invalid number. It should be string" })
+        );
+
+        return;
+      }
+
+      if (!validateNumber(queries.carNumber)) {
+        res.writeHead(400, { "Content-Type": "application/json" });
+        res.end(
+          JSON.stringify({
+            error: "Invalid number. It should satisfy the pattern AAA000",
+          })
+        );
 
         return;
       }
@@ -235,6 +338,10 @@ const deleteHandler = (res, pathname, queries) => {
       res.writeHead(404, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ error: "Not Found" }));
   }
+};
+
+const validateNumber = (number) => {
+  return /^[A-Z]{3}\d{3}$/.test(`${number}`);
 };
 
 server.listen(80, () => {
