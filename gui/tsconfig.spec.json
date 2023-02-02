@@ -3,9 +3,9 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
-    "types": [
-      "jasmine"
-    ]
+    "types": ["jest", "ts-node"],
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true
   },
   "include": [
     "gui/src/**/*.spec.ts",

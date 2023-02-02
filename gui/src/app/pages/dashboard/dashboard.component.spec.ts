@@ -1,23 +1,25 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule } from "@angular/material/dialog";
+import { Spectator } from "@ngneat/spectator";
+import { createComponentFactory } from "@ngneat/spectator/jest";
 
 import { DashboardComponent } from './dashboard.component';
 
 describe('DashboardComponent', () => {
+  let spectator: Spectator<DashboardComponent>;
   let component: DashboardComponent;
-  let fixture: ComponentFixture<DashboardComponent>;
+  const createComponent = createComponentFactory<DashboardComponent>({
+    component: DashboardComponent,
+    imports: [MatDialogModule]
+  });
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ DashboardComponent ]
+  beforeEach(() => {
+    spectator = createComponent();
+    component = spectator.component;
+  });
+
+  describe("should be initialized", () => {
+    it('component should exists', () => {
+      expect(component).toBeDefined();
     })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(DashboardComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  })
 });
