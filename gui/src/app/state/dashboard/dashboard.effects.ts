@@ -2,7 +2,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ICarNumber } from "../../shared/interfaces/car-number.interface";
+import { ICarNumber } from '../../shared/interfaces/car-number.interface';
 
 import { DashboardActions } from './dashboard.actions';
 import { DashboardService } from '../../pages/dashboard/services/dashboard.service';
@@ -19,9 +19,10 @@ export class DashboardEffects {
               carNumbers,
             })
           ),
-          catchError((error: HttpErrorResponse) =>
-            of(DashboardActions.getCarNumbersError({ error: error }))
-          )
+          catchError((error: HttpErrorResponse) => {
+            console.log('Error while get car numbers');
+            return of(DashboardActions.getCarNumbersError({ error: error }));
+          })
         )
       )
     );
@@ -30,16 +31,17 @@ export class DashboardEffects {
   public deleteCarNumber$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(DashboardActions.deleteCarNumberRequest),
-      switchMap(({carNumber}) =>
+      switchMap(({ carNumber }) =>
         this.dashboardService.deleteCarNumber(carNumber).pipe(
           map(() =>
             DashboardActions.deleteCarNumberSuccess({
               carNumber,
             })
           ),
-          catchError((error: HttpErrorResponse) =>
-            of(DashboardActions.deleteCarNumbersError({ error: error }))
-          )
+          catchError((error: HttpErrorResponse) => {
+            console.log('Error while deleting');
+            return of(DashboardActions.deleteCarNumbersError({ error: error }));
+          })
         )
       )
     );
@@ -48,16 +50,17 @@ export class DashboardEffects {
   public editCarNumber$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(DashboardActions.editCarNumberRequest),
-      switchMap(({carNumber}) =>
+      switchMap(({ carNumber }) =>
         this.dashboardService.editCarNumber(carNumber).pipe(
           map(() =>
             DashboardActions.editCarNumberSuccess({
               carNumber,
             })
           ),
-          catchError((error: HttpErrorResponse) =>
-            of(DashboardActions.editCarNumbersError({ error: error }))
-          )
+          catchError((error: HttpErrorResponse) => {
+            console.log('Error while edit');
+            return of(DashboardActions.editCarNumbersError({ error: error }));
+          })
         )
       )
     );
