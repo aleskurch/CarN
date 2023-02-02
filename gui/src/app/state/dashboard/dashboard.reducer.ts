@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import { CarNumberInterface } from '../../shared/interfaces/car-number.interface';
 
+import { CarNumberInterface } from '../../shared/interfaces/car-number.interface';
 import { DashboardActions } from './dashboard.actions';
 import { DEFAULT_LOADING_STATUS } from '../../shared/constants/lodaing-default-status';
 import { LoadingStatusInterface } from '../../shared/interfaces/loading-status-interface';
