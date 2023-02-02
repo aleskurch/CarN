@@ -77,6 +77,7 @@ export class DashboardComponent implements OnChanges {
       .open(AddNumberComponent, {
         data: { carNumber, isEdit: true },
         width: '50vw',
+        minWidth: '20rem',
         autoFocus: false,
       })
       .afterClosed()

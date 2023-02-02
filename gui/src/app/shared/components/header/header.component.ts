@@ -41,6 +41,7 @@ export class HeaderComponent implements OnChanges {
     this.dialog
       .open(AddNumberComponent, {
         width: '50vw',
+        minWidth: '20rem',
         autoFocus: false,
       })
       .afterClosed()

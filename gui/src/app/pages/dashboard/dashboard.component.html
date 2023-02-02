@@ -34,7 +34,10 @@
   </ng-container>
 
   <ng-template #notLoaded>
-    <mat-spinner *ngIf="carNumbersLoadingStatus?.loading || !carNumbersLoadingStatus; else noData" class="spinner"></mat-spinner>
+    <div class="spinner-wrapper">
+      <mat-spinner *ngIf="carNumbersLoadingStatus?.loading || !carNumbersLoadingStatus; else noData"></mat-spinner>
+    </div>
+
 
     <ng-template #noData>
       <mat-icon class="no-data-icon">block</mat-icon>
