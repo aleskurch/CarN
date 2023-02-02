@@ -96,7 +96,7 @@ describe('DashboardContainerComponent', () => {
   });
 
   describe('ngOnInit', () => {
-    it('component should exists', () => {
+    it('should exists', () => {
       expect(component.ngOnInit).toBeDefined();
     });
 
@@ -108,7 +108,7 @@ describe('DashboardContainerComponent', () => {
   });
 
   describe('onDeleteCarNumber', () => {
-    it('component should exists', () => {
+    it('should exists', () => {
       expect(component.onDeleteCarNumber).toBeDefined();
     });
 
@@ -126,7 +126,7 @@ describe('DashboardContainerComponent', () => {
   });
 
   describe('onEditCarNumber', () => {
-    it('component should exists', () => {
+    it('should exists', () => {
       expect(component.onEditCarNumber).toBeDefined();
     });
 
@@ -144,7 +144,7 @@ describe('DashboardContainerComponent', () => {
   });
 
   describe('onStatusDrop', () => {
-    it('component should exists', () => {
+    it('should exists', () => {
       expect(component.onStatusDrop).toBeDefined();
     });
 
@@ -158,7 +158,7 @@ describe('DashboardContainerComponent', () => {
   });
 
   describe('ngOnDestroy', () => {
-    it('component should exists', () => {
+    it('should exists', () => {
       expect(component.ngOnDestroy).toBeDefined();
     });
 

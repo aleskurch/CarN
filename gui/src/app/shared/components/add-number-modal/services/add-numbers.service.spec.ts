@@ -8,18 +8,16 @@ import {
 import { Subscription } from 'rxjs';
 
 import { environment } from "../../../../environments/environment";
-import { CarNumberInterface } from "../../../interfaces/car-number.interface";
 import { CAR_NUMBER_TO_ADD_MOCK } from "../../../mocks/car-number-to-add-mock";
+import { AddNumbersService } from "./add-numbers.service";
 
-import { HeaderService } from "./header.service";
-
-describe('HeaderService', () => {
-  let spectator: SpectatorHttp<HeaderService>;
-  let service: HeaderService;
+describe('AddNumbersService', () => {
+  let spectator: SpectatorHttp<AddNumbersService>;
+  let service: AddNumbersService;
   let subscription: Subscription;
 
   const createService = createHttpFactory({
-    service: HeaderService,
+    service: AddNumbersService,
     imports: [HttpClientTestingModule],
   });
 
@@ -36,15 +34,14 @@ describe('HeaderService', () => {
     });
   });
 
-  describe('addCarNumber', () => {
+  describe('isUnique', () => {
     it('should exists', () => {
-      expect(service.addCarNumber).toBeDefined();
+      expect(service.isUnique).toBeDefined();
     });
 
-    it('should call api post/car-numbers', fakeAsync(() => {
-      const createdDate: CarNumberInterface = {...CAR_NUMBER_TO_ADD_MOCK, registerDate: new Date()}
-      const sub = service.addCarNumber(CAR_NUMBER_TO_ADD_MOCK).subscribe((response) => {
-        expect(response).toEqual(createdDate);
+    it('should call api get/car-numbers?:id', fakeAsync(() => {
+      const sub = service.isUnique(CAR_NUMBER_TO_ADD_MOCK.number).subscribe((response) => {
+        expect(response).toEqual(false);
       });
 
       tick();
@@ -52,10 +49,10 @@ describe('HeaderService', () => {
       subscription.add(sub);
 
       const req = spectator.expectOne(
-        `${environment.apiUrl}car-numbers`,
-        HttpMethod.POST
+        `${environment.apiUrl}car-numbers?carNumber=${CAR_NUMBER_TO_ADD_MOCK.number}`,
+        HttpMethod.GET
       );
-      req.flush(createdDate);
+      req.flush({valid: true});
     }));
   });
 });

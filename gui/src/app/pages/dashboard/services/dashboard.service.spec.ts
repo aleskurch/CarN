@@ -29,13 +29,13 @@ describe('DashboardService', () => {
   });
 
   describe('should be initialized', () => {
-    it('component should exists', () => {
+    it('service should exists', () => {
       expect(service).toBeDefined();
     });
   });
 
   describe('getCarNumbers', () => {
-    it('component should exists', () => {
+    it('should exists', () => {
       expect(service.getCarNumbers).toBeDefined();
     });
 
@@ -57,7 +57,7 @@ describe('DashboardService', () => {
   });
 
   describe('deleteCarNumber', () => {
-    it('component should exists', () => {
+    it('should exists', () => {
       expect(service.deleteCarNumber).toBeDefined();
     });
 
@@ -81,7 +81,7 @@ describe('DashboardService', () => {
   });
 
   describe('editCarNumber', () => {
-    it('component should exists', () => {
+    it('should exists', () => {
       expect(service.editCarNumber).toBeDefined();
     });
 

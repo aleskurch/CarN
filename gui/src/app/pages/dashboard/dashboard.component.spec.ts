@@ -53,7 +53,7 @@ describe('DashboardComponent', () => {
   });
 
   describe('ngOnChanges', () => {
-    it('component should exists', () => {
+    it('should exists', () => {
       expect(component.ngOnChanges).toBeDefined();
     });
 
@@ -95,7 +95,7 @@ describe('DashboardComponent', () => {
   });
 
   describe('onEdit', () => {
-    it('component should exists', () => {
+    it('should exists', () => {
       expect(component.onEdit).toBeDefined();
     });
 
@@ -109,7 +109,7 @@ describe('DashboardComponent', () => {
   });
 
   describe('onDelete', () => {
-    it('component should exists', () => {
+    it('should exists', () => {
       expect(component.onDelete).toBeDefined();
     });
 

@@ -64,7 +64,7 @@ describe('HeaderContainerComponent', () => {
   });
 
   describe('onAddEventNumber', () => {
-    it('component should exists', () => {
+    it('should exists', () => {
       expect(component.onAddEventNumber).toBeDefined();
     });
 
@@ -82,7 +82,7 @@ describe('HeaderContainerComponent', () => {
   });
 
   describe('onStatusDrop', () => {
-    it('component should exists', () => {
+    it('should exists', () => {
       expect(component.onStatusDrop).toBeDefined();
     });
 
@@ -96,7 +96,7 @@ describe('HeaderContainerComponent', () => {
   });
 
   describe('ngOnDestroy', () => {
-    it('component should exists', () => {
+    it('should exists', () => {
       expect(component.ngOnDestroy).toBeDefined();
     });
 

@@ -53,7 +53,7 @@ describe('HeaderComponent', () => {
   });
 
   describe('ngOnChanges', () => {
-    it('component should exists', () => {
+    it('should exists', () => {
       expect(component.ngOnChanges).toBeDefined();
     });
 
@@ -71,7 +71,7 @@ describe('HeaderComponent', () => {
   });
 
   describe('onAddNumber', () => {
-    it('component should exists', () => {
+    it('should exists', () => {
       expect(component.onAddNumber).toBeDefined();
     });
 
