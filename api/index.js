@@ -25,11 +25,11 @@ const server = http.createServer((req, res) => {
       break;
 
     case "PATCH":
-      patchHandler(req, res, pathname)
+      patchHandler(req, res, pathname);
       break;
 
     case "DELETE":
-      deleteHandler(res, pathname, queries)
+      deleteHandler(res, pathname, queries);
       break;
 
     default:
@@ -46,7 +46,7 @@ const setHeaders = (res) => {
     "OPTIONS, GET, PATCH, POST, DELETE"
   );
   res.setHeader("Access-Control-Allow-Headers", "*");
-}
+};
 
 const getHandler = (res, pathname, queries) => {
   switch (pathname) {
@@ -156,7 +156,7 @@ const patchHandler = (req, res, pathname) => {
             (carNumber) => {
               if (carNumber.number === numberToUpdate.number) {
                 updatedNumber = { ...carNumber, holder: numberToUpdate.holder };
-                return updatedNumber
+                return updatedNumber;
               }
 
               return carNumber;
@@ -204,9 +204,7 @@ const deleteHandler = (res, pathname, queries) => {
       fs.readFile("database.json", "utf8", (err, data) => {
         if (err) {
           res.writeHead(404, { "Content-Type": "application/json" });
-          res.end(
-            JSON.stringify({ error: "Error while database connection" })
-          );
+          res.end(JSON.stringify({ error: "Error while database connection" }));
 
           return;
         }
