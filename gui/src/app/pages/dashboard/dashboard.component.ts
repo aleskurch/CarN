@@ -30,10 +30,10 @@ export class DashboardComponent implements OnChanges {
   @Input() public editNumbersLoadingStatus!: LoadingStatusInterface | null;
   @Input() public deleteNumbersLoadingStatus!: LoadingStatusInterface | null;
 
-  @Output() public deleteCarNumber: EventEmitter<CarNumberInterface> =
-    new EventEmitter<CarNumberInterface>();
-  @Output() public editCarNumber: EventEmitter<CarNumberInterface> =
-    new EventEmitter<CarNumberInterface>();
+  @Output() public deleteCarNumber: EventEmitter<string> =
+    new EventEmitter<string>();
+  @Output() public editCarNumber: EventEmitter<CarNumberToAddInterface> =
+    new EventEmitter<CarNumberToAddInterface>();
   @Output() public askStatusesDrop: EventEmitter<void> =
     new EventEmitter<void>();
 
@@ -83,16 +83,13 @@ export class DashboardComponent implements OnChanges {
       .pipe(
         filter(Boolean),
         tap((editedCarNumber: CarNumberToAddInterface) =>
-          this.editCarNumber.emit({
-            ...editedCarNumber,
-            registerDate: carNumber.registerDate,
-          })
+          this.editCarNumber.emit(editedCarNumber)
         )
       )
       .subscribe();
   }
 
-  public onDelete(carNumber: CarNumberInterface): void {
+  public onDelete(carNumber: string): void {
     this.deleteCarNumber.emit(carNumber);
   }
 }

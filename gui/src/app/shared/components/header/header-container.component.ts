@@ -27,7 +27,7 @@ export class HeaderContainerComponent implements OnDestroy {
   public onAddEventNumber(newNumber: CarNumberToAddInterface): void {
     this.store.dispatch(
       HeaderActions.addCarNumberRequest({
-        carNumber: { ...newNumber, registerDate: new Date() },
+        carNumber: newNumber,
       })
     );
   }

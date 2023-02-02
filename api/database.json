@@ -1,1 +1,54 @@
-{"carNumbers":[{"number":"AAA001","holder":"holder1","registerDate":"2023-02-02T14:14:26.037Z"},{"number":"AAA000","holder":"Me","registerDate":"2023-02-02T14:14:10.887Z"}]}
+{
+  "carNumbers": [
+    {
+      "number": "AAA001",
+      "holder": "Holder 001",
+      "registerDate": "2023-02-02T15:48:14.024Z"
+    },
+    {
+      "number": "AAB012",
+      "holder": "Holder 002",
+      "registerDate": "2022-12-04T14:14:26.037Z"
+    },
+    {
+      "number": "ABB123",
+      "holder": "Holder 003",
+      "registerDate": "2020-11-01T14:14:10.887Z"
+    },
+    {
+      "number": "BBB234",
+      "holder": "Holder 004",
+      "registerDate": "2019-09-10T14:14:10.887Z"
+    },
+    {
+      "number": "BBC345",
+      "holder": "Holder 005",
+      "registerDate": "2019-08-27T14:14:10.887Z"
+    },
+    {
+      "number": "BCC456",
+      "holder": "Holder 006",
+      "registerDate": "2019-07-26T14:14:10.887Z"
+    },
+    {
+      "number": "CCC567",
+      "holder": "Holder 007",
+      "registerDate": "2018-06-23T14:14:10.887Z"
+    },
+    {
+      "number": "CCD678",
+      "holder": "Holder 008",
+      "registerDate": "2018-05-23T14:14:10.887Z"
+    },
+    {
+      "number": "CDD789",
+      "holder": "Holder 009",
+      "registerDate": "2018-04-22T14:14:10.887Z"
+    },
+    {
+      "number": "ABD910",
+      "holder": "Holder 010",
+      "registerDate": "2018-03-02T14:14:10.887Z"
+    }
+  ]
+}

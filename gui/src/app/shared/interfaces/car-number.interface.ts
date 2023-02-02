@@ -4,4 +4,4 @@ export interface CarNumberInterface {
   registerDate: Date,
 }
 
-export type CarNumberToAddInterface = Omit<CarNumberInterface, 'registered'>
+export type CarNumberToAddInterface = Omit<CarNumberInterface, 'registerDate'>

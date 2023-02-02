@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { CarNumberInterface } from '../../../shared/interfaces/car-number.interface';
+import {
+  CarNumberInterface,
+  CarNumberToAddInterface,
+} from '../../../shared/interfaces/car-number.interface';
 
 import { BaseService } from '../../../shared/services/base-http.service';
 import { CarNumbersFromApiInterface } from '../interfaces/car-numbers-from-api.interface';
@@ -16,16 +19,19 @@ export class DashboardService extends BaseService {
   }
 
   public deleteCarNumber(
-    numberToDelete: CarNumberInterface | null
-  ): Observable<Omit<CarNumberInterface, 'holder' | 'registerDate'>> {
-    return this.delete<Omit<CarNumberInterface, 'holder' | 'registerDate'>>('delete-car-number', {
-      carNumber: numberToDelete?.number || '',
-    });
+    numberToDelete: string | null
+  ): Observable<unknown> {
+    return this.delete<unknown>(
+      'car-numbers',
+      {
+        carNumber: numberToDelete || '',
+      }
+    );
   }
 
   public editCarNumber(
-    numberToUpdate: CarNumberInterface | null
+    numberToUpdate: CarNumberToAddInterface | null
   ): Observable<CarNumberInterface> {
-    return this.patch<CarNumberInterface>('update-car-number', numberToUpdate);
+    return this.patch<CarNumberInterface>('car-numbers', numberToUpdate);
   }
 }

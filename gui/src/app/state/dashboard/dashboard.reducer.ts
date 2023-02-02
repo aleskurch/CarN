@@ -69,7 +69,7 @@ export const DASHBOARD_REDUCER = createReducer(
       carNumbers:
         state.carNumbers?.filter(
           (existedCarNumber: CarNumberInterface) =>
-            existedCarNumber.number !== carNumber?.number
+            existedCarNumber.number !== carNumber
         ) || [],
       deleteNumberLoadingStatus: {
         loading: false,

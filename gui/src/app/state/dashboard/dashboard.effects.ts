@@ -52,9 +52,9 @@ export class DashboardEffects {
       ofType(DashboardActions.editCarNumberRequest),
       switchMap(({ carNumber }) =>
         this.dashboardService.editCarNumber(carNumber).pipe(
-          map(() =>
+          map((updatedNumber: CarNumberInterface) =>
             DashboardActions.editCarNumberSuccess({
-              carNumber,
+              carNumber: updatedNumber,
             })
           ),
           catchError((error: HttpErrorResponse) => {

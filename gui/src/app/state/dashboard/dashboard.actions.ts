@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
-import { CarNumberInterface } from '../../shared/interfaces/car-number.interface';
+import { CarNumberInterface, CarNumberToAddInterface } from '../../shared/interfaces/car-number.interface';
 
 export const DashboardActions = {
   getCarNumbersRequest: createAction('[DASHBOARD] car numbers requested'),
@@ -18,11 +18,11 @@ export const DashboardActions = {
   ),
   deleteCarNumberRequest: createAction(
     '[DASHBOARD] delete car number requested',
-    props<{ carNumber: CarNumberInterface | null }>()
+    props<{ carNumber: string | null }>()
   ),
   deleteCarNumberSuccess: createAction(
     '[DASHBOARD] delete car number success',
-    props<{ carNumber: CarNumberInterface | null }>()
+    props<{ carNumber: string | null }>()
   ),
   deleteCarNumbersError: createAction(
     '[DASHBOARD] delete car number error',
@@ -30,7 +30,7 @@ export const DashboardActions = {
   ),
   editCarNumberRequest: createAction(
     '[DASHBOARD] edit car number requested',
-    props<{ carNumber: CarNumberInterface | null }>()
+    props<{ carNumber: CarNumberToAddInterface | null }>()
   ),
   editCarNumberSuccess: createAction(
     '[DASHBOARD] edit car number success',

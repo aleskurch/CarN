@@ -3,6 +3,7 @@ import { catchError, map, of, switchMap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HeaderService } from '../../shared/components/header/services/header.service';
+import { CarNumberInterface } from "../../shared/interfaces/car-number.interface";
 
 import { HeaderActions } from './header.actions';
 import { DashboardActions } from '../dashboard/dashboard.actions';
@@ -14,7 +15,7 @@ export class HeaderEffects {
       ofType(HeaderActions.addCarNumberRequest),
       switchMap(({ carNumber }) =>
         this.headerService.addCarNumber(carNumber).pipe(
-          map(() => DashboardActions.addCardNumber({ carNumber })),
+          map((newCarNumber: CarNumberInterface) => DashboardActions.addCardNumber({ carNumber: newCarNumber })),
           catchError((error: HttpErrorResponse) => {
             console.log('Error while add');
             return of(HeaderActions.addCarNumberError({ error: error }));

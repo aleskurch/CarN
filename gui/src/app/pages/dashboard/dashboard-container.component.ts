@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { CarNumberInterface } from '../../shared/interfaces/car-number.interface';
+import { CarNumberInterface, CarNumberToAddInterface } from '../../shared/interfaces/car-number.interface';
 import { LoadingStatusInterface } from '../../shared/interfaces/loading-status-interface';
 import {
   selectCarNumbers,
@@ -47,13 +47,13 @@ export class DashboardContainerComponent implements OnInit, OnDestroy {
     this.store.dispatch(DashboardActions.getCarNumbersRequest());
   }
 
-  public onDeleteCarNumber(deletingCarNumber: CarNumberInterface): void {
+  public onDeleteCarNumber(deletingCarNumber: string): void {
     this.store.dispatch(
       DashboardActions.deleteCarNumberRequest({ carNumber: deletingCarNumber })
     );
   }
 
-  public onEditCarNumber(editingCarNumber: CarNumberInterface): void {
+  public onEditCarNumber(editingCarNumber: CarNumberToAddInterface): void {
     this.store.dispatch(
       DashboardActions.editCarNumberRequest({ carNumber: editingCarNumber })
     );
