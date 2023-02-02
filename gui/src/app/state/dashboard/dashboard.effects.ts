@@ -2,7 +2,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ICarNumber } from '../../shared/interfaces/car-number.interface';
+import { CarNumberInterface } from '../../shared/interfaces/car-number.interface';
 
 import { DashboardActions } from './dashboard.actions';
 import { DashboardService } from '../../pages/dashboard/services/dashboard.service';
@@ -14,7 +14,7 @@ export class DashboardEffects {
       ofType(DashboardActions.getCarNumbersRequest),
       switchMap(() =>
         this.dashboardService.getCarNumbers().pipe(
-          map((carNumbers: ICarNumber[]) =>
+          map((carNumbers: CarNumberInterface[]) =>
             DashboardActions.getCarNumbersSuccess({
               carNumbers,
             })
@@ -59,7 +59,7 @@ export class DashboardEffects {
           ),
           catchError((error: HttpErrorResponse) => {
             console.log('Error while edit');
-            return of(DashboardActions.editCarNumbersError({ error: error }));
+            return of(DashboardActions.editCarNumberError({ error: error }));
           })
         )
       )

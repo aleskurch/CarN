@@ -13,7 +13,6 @@ export class BaseService {
       'Content-Type': 'application/json',
     }),
   };
-
   private apiUrl = environment.apiUrl;
 
   constructor(protected httpClient: HttpClient) {}

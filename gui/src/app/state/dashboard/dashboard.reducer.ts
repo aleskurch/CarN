@@ -1,19 +1,23 @@
 import { createReducer, on } from '@ngrx/store';
-import { ICarNumber } from '../../shared/interfaces/car-number.interface';
+import { CarNumberInterface } from '../../shared/interfaces/car-number.interface';
 
 import { DashboardActions } from './dashboard.actions';
 import { DEFAULT_LOADING_STATUS } from '../../shared/constants/lodaing-default-status';
-import { LoadingStatus } from '../../shared/interfaces/loading-status';
+import { LoadingStatusInterface } from '../../shared/interfaces/loading-status-interface';
 
 export const DASHBOARD = 'dashboard';
 
 export interface DashboardState {
-  carNumbersLoadingStatus: LoadingStatus;
-  carNumbers: ICarNumber[] | null;
+  carNumbersLoadingStatus: LoadingStatusInterface;
+  editNumberLoadingStatus: LoadingStatusInterface;
+  deleteNumberLoadingStatus: LoadingStatusInterface;
+  carNumbers: CarNumberInterface[] | null;
 }
 
 const initialState: DashboardState = {
   carNumbersLoadingStatus: DEFAULT_LOADING_STATUS,
+  editNumberLoadingStatus: DEFAULT_LOADING_STATUS,
+  deleteNumberLoadingStatus: DEFAULT_LOADING_STATUS,
   carNumbers: null,
 };
 
@@ -55,7 +59,7 @@ export const DASHBOARD_REDUCER = createReducer(
     DashboardActions.deleteCarNumberRequest,
     (state): DashboardState => ({
       ...state,
-      carNumbersLoadingStatus: DEFAULT_LOADING_STATUS,
+      deleteNumberLoadingStatus: DEFAULT_LOADING_STATUS,
     })
   ),
   on(
@@ -64,10 +68,10 @@ export const DASHBOARD_REDUCER = createReducer(
       ...state,
       carNumbers:
         state.carNumbers?.filter(
-          (existedCarNumber: ICarNumber) =>
+          (existedCarNumber: CarNumberInterface) =>
             existedCarNumber.number !== carNumber?.number
         ) || [],
-      carNumbersLoadingStatus: {
+      deleteNumberLoadingStatus: {
         loading: false,
         loaded: true,
         error: null,
@@ -75,17 +79,17 @@ export const DASHBOARD_REDUCER = createReducer(
     })
   ),
   on(
-    DashboardActions.getCarNumbersError,
+    DashboardActions.deleteCarNumbersError,
     (state, { error }): DashboardState => ({
       ...state,
-      carNumbersLoadingStatus: { loading: false, loaded: false, error },
+      deleteNumberLoadingStatus: { loading: false, loaded: false, error },
     })
   ),
   on(
     DashboardActions.editCarNumberRequest,
     (state): DashboardState => ({
       ...state,
-      carNumbersLoadingStatus: DEFAULT_LOADING_STATUS,
+      editNumberLoadingStatus: DEFAULT_LOADING_STATUS,
     })
   ),
   on(
@@ -93,14 +97,14 @@ export const DASHBOARD_REDUCER = createReducer(
     (state, { carNumber }): DashboardState => ({
       ...state,
       carNumbers:
-        state.carNumbers?.map((existedCarNumber: ICarNumber) => {
+        state.carNumbers?.map((existedCarNumber: CarNumberInterface) => {
           if (existedCarNumber.number === carNumber?.number) {
             return carNumber;
           }
 
           return existedCarNumber;
         }) || [],
-      carNumbersLoadingStatus: {
+      editNumberLoadingStatus: {
         loading: false,
         loaded: true,
         error: null,
@@ -108,10 +112,15 @@ export const DASHBOARD_REDUCER = createReducer(
     })
   ),
   on(
-    DashboardActions.getCarNumbersError,
+    DashboardActions.editCarNumberError,
     (state, { error }): DashboardState => ({
       ...state,
-      carNumbersLoadingStatus: { loading: false, loaded: false, error },
+      editNumberLoadingStatus: { loading: false, loaded: false, error },
     })
-  )
+  ),
+  on(DashboardActions.dropLoadingStatuses, (state): DashboardState => ({
+  ...state,
+  editNumberLoadingStatus: DEFAULT_LOADING_STATUS,
+  deleteNumberLoadingStatus: DEFAULT_LOADING_STATUS,
+}))
 );

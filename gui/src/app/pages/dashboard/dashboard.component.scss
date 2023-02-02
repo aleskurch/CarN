@@ -13,6 +13,18 @@
     background-color: $background-color;
     padding: $offset-large;
 
+    .no-data-icon {
+      font-size: 3rem;
+      width: 3rem;
+      height: 3rem;
+      color: $accent-color;
+    }
+
+    .no-data-text {
+      font-size: 2.5rem;
+      color: $accent-color;
+    }
+
     .dashboard-card {
       width: max-content;
       height: max-content;

@@ -3,15 +3,20 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   Output,
+  SimpleChanges,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { filter, tap } from 'rxjs';
+
 import { AddNumberComponent } from '../../shared/components/add-number-modal/add-number.component';
 import {
-  CarNumberToAdd,
-  ICarNumber,
+  CarNumberToAddInterface,
+  CarNumberInterface,
 } from '../../shared/interfaces/car-number.interface';
+import { LoadingStatusInterface } from '../../shared/interfaces/loading-status-interface';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,27 +24,65 @@ import {
   styleUrls: ['./dashboard.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardComponent {
-  @Input() public carNumbers!: ICarNumber[] | null;
+export class DashboardComponent implements OnChanges {
+  @Input() public carNumbers!: CarNumberInterface[] | null;
+  @Input() public carNumbersLoadingStatus!: LoadingStatusInterface | null;
+  @Input() public editNumbersLoadingStatus!: LoadingStatusInterface | null;
+  @Input() public deleteNumbersLoadingStatus!: LoadingStatusInterface | null;
 
-  @Output() public deleteCarNumber: EventEmitter<ICarNumber> =
-    new EventEmitter<ICarNumber>();
-  @Output() public editCarNumber: EventEmitter<ICarNumber> =
-    new EventEmitter<ICarNumber>();
+  @Output() public deleteCarNumber: EventEmitter<CarNumberInterface> =
+    new EventEmitter<CarNumberInterface>();
+  @Output() public editCarNumber: EventEmitter<CarNumberInterface> =
+    new EventEmitter<CarNumberInterface>();
+  @Output() public askStatusesDrop: EventEmitter<void> =
+    new EventEmitter<void>();
 
-  constructor(private matDialog: MatDialog) {}
+  constructor(private matDialog: MatDialog, private snackBar: MatSnackBar) {}
 
-  public onEdit(carNumber: ICarNumber): void {
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (
+      changes.carNumbersLoadingStatus &&
+      this.carNumbersLoadingStatus?.error
+    ) {
+      this.snackBar.open(
+        'Numbers loading felt. Pleas try to refresh the page',
+        'Ok',
+        { duration: 6000 }
+      );
+    }
+
+    if (
+      changes.editNumbersLoadingStatus &&
+      this.editNumbersLoadingStatus?.error
+    ) {
+      this.snackBar.open('Edit felt. Pleas try later', 'Ok', {
+        duration: 6000,
+      });
+      this.askStatusesDrop.emit();
+    }
+
+    if (
+      changes.deleteNumbersLoadingStatus &&
+      this.deleteNumbersLoadingStatus?.error
+    ) {
+      this.snackBar.open('Delete felt. Pleas try later', 'Ok', {
+        duration: 6000,
+      });
+      this.askStatusesDrop.emit();
+    }
+  }
+
+  public onEdit(carNumber: CarNumberInterface): void {
     this.matDialog
       .open(AddNumberComponent, {
-        data: {carNumber, isEdit: true},
+        data: { carNumber, isEdit: true },
         width: '50vw',
         autoFocus: false,
       })
       .afterClosed()
       .pipe(
         filter(Boolean),
-        tap((editedCarNumber: CarNumberToAdd) =>
+        tap((editedCarNumber: CarNumberToAddInterface) =>
           this.editCarNumber.emit({
             ...editedCarNumber,
             registerDate: carNumber.registerDate,
@@ -49,7 +92,7 @@ export class DashboardComponent {
       .subscribe();
   }
 
-  public onDelete(carNumber: ICarNumber): void {
+  public onDelete(carNumber: CarNumberInterface): void {
     this.deleteCarNumber.emit(carNumber);
   }
 }
